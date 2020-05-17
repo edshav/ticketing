@@ -4,8 +4,6 @@ deploy:
   kubectl:
     manifests:
       - ./infra/k8s/*
-metadata:
-  name: ticketing
 build:
   local:
     push: false
@@ -17,4 +15,12 @@ build:
       sync:
         manual:
           - src: 'src/**/*.ts'
+            dest: .
+    - image: edshav/client
+      context: client
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: '**/*.js'
             dest: .
